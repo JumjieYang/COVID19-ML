@@ -62,5 +62,6 @@ hospitalization_df = hospitalization_df.drop(axis=1,columns=['region_name'])
 
 # then we need to resample the data to weekly basis
 hospitalization_df['date'] = pd.to_datetime(hospitalization_df['date'],format='%Y-%m-%d')
-hospitalization_df = hospitalization_df.groupby(['open_covid_region_code',]).resample('W', on='date',loffset='1d').sum()
+hospitalization_df = hospitalization_df.groupby(['open_covid_region_code',]).resample('W', on='date',loffset='1d', closed="left").sum()
+hospitalization_df = hospitalization_df.reset_index()
 print(hospitalization_df)
