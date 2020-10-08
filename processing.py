@@ -29,7 +29,7 @@ search_trend_df = search_trend_df.drop(axis=1,columns=['country_region_code','co
 
 # look at the dataframe again
 cols = search_trend_df.columns.values[:5]
-print(search_trend_df[cols].head(5))
+print(search_trend_df[cols].tail(5))
 
 # # now, check number of nulls in each column
 # print(search_trend_df.isnull().sum())
@@ -62,5 +62,5 @@ hospitalization_df = hospitalization_df.drop(axis=1,columns=['region_name'])
 
 # then we need to resample the data to weekly basis
 hospitalization_df['date'] = pd.to_datetime(hospitalization_df['date'],format='%Y-%m-%d')
-hospitalization_df = hospitalization_df.groupby(['open_covid_region_code',]).resample('W', on='date',).sum()
+hospitalization_df = hospitalization_df.groupby(['open_covid_region_code',]).resample('W', on='date',loffset='1d').sum()
 print(hospitalization_df)
